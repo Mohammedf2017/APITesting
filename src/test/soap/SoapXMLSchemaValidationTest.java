@@ -6,19 +6,17 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-
-public class SoapAPITest {
+public class SoapXMLSchemaValidationTest {
 
     @Test
-    public void SoapAPiTest() throws IOException {
-
+    public void xmlSchemaValidation() throws IOException {
         File file = new File("./SoapReq/NumberToWords.xml");
         FileInputStream fileInputStream = new FileInputStream(file);
         String reqBody = IOUtils.toString(fileInputStream , StandardCharsets.UTF_8);
@@ -35,6 +33,5 @@ public class SoapAPITest {
                 .log().all()
                 .and()
                 .body("//*:NumberToWordsResult.text()" , equalTo("two hundred "));
-
     }
 }
